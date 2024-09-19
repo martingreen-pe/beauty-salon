@@ -1,0 +1,97 @@
+/* Contenedor principal */
+.lista-citas-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Título */
+  .lista-citas-titulo {
+    text-align: center;
+    color: #6d28d9;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Texto cuando no hay citas */
+  .lista-citas-vacio {
+    text-align: center;
+    font-size: 18px;
+    color: #6d28d9;
+  }
+  
+  /* Lista de citas */
+  .lista-citas {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .lista-citas-item {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease;
+  }
+  
+  .lista-citas-item:hover {
+    transform: scale(1.02); /* Pequeño efecto de hover */
+  }
+  
+  /* Información de la cita */
+  .cita-info {
+    color: #333;
+    font-size: 16px;
+  }
+  
+  .cita-nombre {
+    font-weight: bold;
+    color: #6d28d9;
+  }
+  
+  .cita-telefono {
+    font-style: italic;
+    color: #555;
+  }
+  
+  /* Botones de acción */
+  .cita-acciones {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .cita-btn {
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .editar-btn {
+    background-color: #6d28d9;
+    color: white;
+  }
+  
+  .editar-btn:hover {
+    background-color: #854cd0;
+  }
+  
+  .eliminar-btn {
+    background-color: #ff4d4d;
+    color: white;
+  }
+  
+  .eliminar-btn:hover {
+    background-color: #ff1a1a;
+  }
+  

@@ -1,38 +1,127 @@
-.App {
+/* Reset básico */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Estilos generales */
+.container {
+  padding: 15px;
+}
+
+/* Ajustes para botones */
+.btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+/* Media query para pantallas más grandes */
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .btn {
+    width: auto;
+    padding: 15px 30px;
+  }
+}
+
+
+/* Contenedor principal de la app */
+.app-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+.app-title {
   text-align: center;
+  color: #6d28d9;
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+/* Botón para mostrar/ocultar el buscador */
+.toggle-search-btn {
+  padding: 10px 15px;
+  background-color: #6d28d9;
   color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 15px;
+  display: block;  /* Para asegurarnos de que ocupe una línea completa */
+  margin: 0 auto;  /* Centramos horizontalmente el botón */
 }
 
-.App-link {
-  color: #61dafb;
+.toggle-search-btn:hover {
+  background-color: #854cd0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Contenedor del buscador */
+.search-container {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Input de búsqueda */
+.search-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 2px solid #d3bdfc;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #6d28d9;
+}
+
+/* Contenedor de filtros de fecha */
+.date-filters {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date-input {
+  width: 48%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #d3bdfc;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+}
+
+.date-input:focus {
+  border-color: #6d28d9;
+}
+
+/* Estilos responsive para móviles */
+@media (max-width: 768px) {
+  .date-input {
+    width: 100%;
+    margin-bottom: 10px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .date-filters {
+    flex-direction: column;
   }
 }

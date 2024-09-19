@@ -1,0 +1,101 @@
+/* Estilos para el formulario */
+
+/* Contenedor del formulario */
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco suave */
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición para interacción */
+  }
+  
+  .form-container:hover {
+    transform: scale(1.02); /* Aumenta el tamaño ligeramente al pasar el ratón */
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+  }
+  
+  /* Título del formulario */
+  .form-title {
+    text-align: center;
+    color: #6d28d9;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: color 0.3s ease;
+  }
+  
+  .form-title:hover {
+    color: #854cd0; /* Cambia a un morado más oscuro cuando se pasa el ratón */
+  }
+  
+  /* Etiquetas */
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #6d28d9;
+    font-weight: bold;
+  }
+  
+  /* Campos de entrada y select */
+  .form-input, .form-select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #d3bdfc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .form-input:focus, .form-select:focus {
+    border-color: #6d28d9; /* Morado más oscuro cuando está en foco */
+    background-color: rgba(255, 255, 255, 1); /* Fondo más brillante al estar en foco */
+  }
+  
+  /* Botón del formulario */
+  .form-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #6d28d9;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .form-button:hover {
+    background-color: #854cd0; /* Morado más oscuro al pasar el ratón */
+    transform: translateY(-2px); /* Efecto de levantar ligeramente al hacer hover */
+  }
+  
+  .form-button:active {
+    transform: translateY(0); /* Regresa a la posición original al hacer clic */
+    background-color: #5a1fb3; /* Aún más oscuro al hacer clic */
+  }
+  
+  /* Mensaje de error */
+  .form-error {
+    color: red;
+    margin-top: -10px;
+    font-weight: bold;
+    text-align: center;
+    animation: fadeIn 0.5s ease; /* Animación de aparición */
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  

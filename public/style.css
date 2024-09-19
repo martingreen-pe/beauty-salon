@@ -1,0 +1,73 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f3e7ff; /* Morado suave */
+    color: #333;
+    padding: 15px;
+  }
+  
+  /* Contenedor principal */
+  .container {
+    background-color: rgba(255, 255, 255, 0.9); /* Blanco transparente */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Títulos */
+  h2 {
+    font-size: 24px;
+    color: #6d28d9; /* Morado */
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Inputs y botones */
+  input, select, button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #d3bdfc;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  input:focus, select:focus, button:focus {
+    outline: none;
+    border-color: #6d28d9; /* Morado oscuro */
+  }
+  
+  button {
+    background-color: #6d28d9; /* Morado */
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  button:hover {
+    background-color: #854cd0; /* Morado más oscuro */
+  }
+  
+  /* Degradado para áreas específicas */
+  .gradient-background {
+    background: linear-gradient(135deg, rgba(109, 40, 217, 0.5), rgba(255, 255, 255, 0.5));
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  /* Diseño responsive */
+  @media (min-width: 768px) {
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+  
