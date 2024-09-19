@@ -3,13 +3,22 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 
+
 // Middleware para leer JSON
 app.use(express.json());
 
 // Habilitar CORS
+const allowedOrigins = ['http://localhost:3000', 'https://tu-app-en-netlify.netlify.app'];
+
 app.use(cors({
-    origin: 'http://localhost:3000'  // Permitir el origen del frontend
-  }));
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  }
+}));
 
 // Conectar a MongoDB (reemplaza <TU_URI_DE_MONGODB> con tu URI de MongoDB)
 mongoose.connect('mongodb+srv://martinenriquepe:bwbEoDbX7KW5WzW5@beauty-salon.mswkl.mongodb.net/?retryWrites=true&w=majority&appName=beauty-salon')
