@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 // Habilitar CORS
-const allowedOrigins = ['http://localhost:3000', 'https://tu-app-en-netlify.netlify.app'];
+const allowedOrigins = ['http://localhost:3000', 'https://beauty-salon-citas.netlify.app'];
 
 app.use(cors({
   origin: function (origin, callback) {
