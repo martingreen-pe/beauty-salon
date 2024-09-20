@@ -28,7 +28,7 @@ function FormularioCliente() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/clientes/crear', {
+      const response = await axios.post('https://beauty-salon-77.onrender.com/api/clientes/crear', {
         nombre,
         telefono,
         fechaCita,

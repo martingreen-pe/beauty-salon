@@ -11,7 +11,7 @@ app.use(express.json());
 const allowedOrigins = [
   'http://localhost:3000', 
   'http://192.168.0.104:3000',  // Tu IP local para acceso desde dispositivos móviles
-  'https://beauty-salon-citas.netlify.app'  // El frontend en producción
+  'https://beauty-salon-77.onrender.com/'  // El frontend en producción
 ];
 
 // Configuración CORS

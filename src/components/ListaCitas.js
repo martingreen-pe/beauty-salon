@@ -7,7 +7,7 @@ function ListaCitas({ citas, eliminarCita, editarCita }) {
   const handleEliminar = async (id) => {
     if (window.confirm('¿Estás seguro de que deseas eliminar esta cita?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/clientes/eliminar/${id}`);
+        await axios.delete(`https://beauty-salon-77.onrender.com/api/clientes/eliminar/${id}`);
         eliminarCita(id);
       } catch (error) {
         console.error('Error al eliminar la cita:', error);
