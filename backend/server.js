@@ -4,11 +4,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 
-// Ruta básica
-app.get('/', (req, res) => {
-  res.send('Bienvenido al backend de Beauty Salon');
-});
-
 // Middleware para leer JSON
 app.use(express.json());
 
@@ -22,7 +17,6 @@ const allowedOrigins = [
 // Configuración CORS
 app.use(cors({
   origin: function (origin, callback) {
-    // Permitir solicitudes sin origen (como archivos locales o ciertas apps móviles)
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
@@ -30,7 +24,7 @@ app.use(cors({
     }
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Métodos permitidos
-  credentials: true,  // Si utilizas cookies o autenticación basada en sesión
+  credentials: true,
 }));
 
 // Conectar a MongoDB
@@ -38,17 +32,17 @@ mongoose.connect('mongodb+srv://martinenriquepe:bwbEoDbX7KW5WzW5@beauty-salon.ms
   .then(() => console.log('Conectado a MongoDB'))
   .catch((err) => console.log(err));
 
-// Usar rutas
+// Rutas de API
 app.use('/api/clientes', require('./routes/cliente'));
 
-// **Servir el frontend desde la carpeta raíz**
+// **Servir archivos estáticos del frontend**
 app.use(express.static(path.join(__dirname, '../build')));
 
-// Servir index.html para rutas no manejadas por las APIs
+// **Cualquier ruta no manejada por las APIs la redirigimos al frontend (index.html)**
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
 
-// Puerto y servidor
+// Puerto del servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
