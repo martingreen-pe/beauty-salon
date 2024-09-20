@@ -17,7 +17,7 @@ function App() {
 
   const obtenerCitas = async () => {
     try {
-      const response = await axios.get('https://beauty-salon-0tw1.onrender.com/api/clientes/citas');
+      const response = await axios.get('http://192.168.0.104:5000/api/clientes/citas');
       setCitas(response.data);
     } catch (error) {
       console.error('Error al obtener las citas:', error);

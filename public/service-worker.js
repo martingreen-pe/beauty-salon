@@ -35,6 +35,11 @@ self.addEventListener('activate', (event) => {
 
 // Fetch requests
 self.addEventListener('fetch', (event) => {
+  // No interceptar la ruta de OAuth callback
+  if (event.request.url.includes('/oauth2callback')) {
+    return;  // Deja pasar la solicitud sin interceptar
+  }
+
   event.respondWith(
     caches.match(event.request).then((response) => {
       return response || fetch(event.request);
