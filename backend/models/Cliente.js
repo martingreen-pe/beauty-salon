@@ -5,17 +5,23 @@ const ClienteSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  telefono: {
+    type: String,
+    required: true
+  },
   fechaCita: {
     type: Date,
     required: true
   },
-  retoque: {
-    type: Date,
-    required: true
-  },
-  telefono: {
+  servicios: {
     type: String,
     required: true
+  },
+  retoque: {
+    type: Date,  // Asegúrate de que este campo no sea requerido si no siempre lo necesitas
+    required: function() {
+      return this.servicios === 'pestañas: extensiones';  // Solo es requerido para 'pestañas: extensiones'
+    }
   }
 });
 

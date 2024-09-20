@@ -5,7 +5,7 @@ const { getGoogleCalendar } = require('./calendarAuth');
 
 // Ruta para registrar una nueva cita
 router.post('/crear', async (req, res) => {
-  const { nombre, fechaCita, horaCita, telefono, servicios } = req.body;
+  const { nombre, fechaCita, horaCita, telefono, servicios, retoque } = req.body;
   console.log('Datos recibidos:', { nombre, fechaCita, horaCita, telefono, servicios });
 
   if (!nombre || !fechaCita || !horaCita || !telefono || !servicios) {
@@ -19,7 +19,8 @@ router.post('/crear', async (req, res) => {
       nombre,
       fechaCita: fechaHoraCita,
       telefono,
-      servicios
+      servicios,
+      retoque
     });
     const citaGuardada = await nuevaCita.save();
 
