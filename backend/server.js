@@ -40,6 +40,14 @@ mongoose.connect('mongodb+srv://martinenriquepe:bwbEoDbX7KW5WzW5@beauty-salon.ms
 // Usar rutas
 app.use('/api/clientes', require('./routes/cliente'));
 
+// **Servir el frontend desde la carpeta raíz**
+app.use(express.static(path.join(__dirname, '../build')));
+
+// Servir index.html para rutas no manejadas por las APIs
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
+
 // Puerto y servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
