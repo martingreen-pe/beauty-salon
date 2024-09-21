@@ -49,63 +49,58 @@ router.post('/crear', async (req, res) => {
     };
 
     // Insertar el evento principal en Google Calendar
-    calendar.events.insert({
-      calendarId: 'primary',
-      resource: eventoPrincipal,
-    }, (err, event) => {
-      if (err) {
-        console.error('Error al crear el evento en Google Calendar:', err.message);
-        return res.status(500).json({ error: 'Error al crear el evento en Google Calendar' });
-      }
-      console.log('Evento principal creado en Google Calendar:', event.data.htmlLink);
-    });
-
-    // Solo si el servicio es "pestañas: extensiones", programar el retoque automático
-    if (servicios === 'pestañas: extensiones') {
-      const fechaRetoque = new Date(fechaHoraCita);
-      fechaRetoque.setDate(fechaRetoque.getDate() + 12); // Agregar 12 días para el retoque
-      console.log("Fecha de retoque calculada:", fechaRetoque); // Comprobar la fecha calculada
-
-      const eventoRetoque = {
-        summary: `Retoque de Pestañas - ${nombre}`,
-        description: `Recordatorio de retoque de pestañas para ${nombre}. Teléfono: ${telefono}`,
-        start: {
-          dateTime: fechaRetoque.toISOString(),
-          timeZone: 'America/Lima',
-        },
-        end: {
-          dateTime: new Date(fechaRetoque.getTime() + 30 * 60000).toISOString(), // Duración 30 minutos
-          timeZone: 'America/Lima',
-        },
-        reminders: {
-          useDefault: false,
-          overrides: [
-            { method: 'email', minutes: 3 * 24 * 60 }, // Recordatorio 3 días antes
-            { method: 'popup', minutes: 10 }, // Notificación emergente 10 minutos antes
-          ],
-        },
-      };
-
-      // Insertar el evento de retoque en Google Calendar
-      calendar.events.insert({
+    try {
+      const event = await calendar.events.insert({
         calendarId: 'primary',
-        resource: eventoRetoque,
-      }, (err, event) => {
-        if (err) {
-          console.error('Error al crear el evento de retoque en Google Calendar:', err.message);
-          return res.status(500).json({ error: 'Error al crear el evento de retoque en Google Calendar' });
-        }
-        console.log('Evento de retoque creado en Google Calendar:', event.data.htmlLink);
+        resource: eventoPrincipal,
       });
+      console.log('Evento principal creado en Google Calendar:', event.data.htmlLink);
+
+      // Solo si el servicio es "pestañas: extensiones", programar el retoque automático
+      if (servicios === 'pestañas: extensiones') {
+        const fechaRetoque = new Date(fechaHoraCita);
+        fechaRetoque.setDate(fechaRetoque.getDate() + 12); // Agregar 12 días para el retoque
+        console.log("Fecha de retoque calculada:", fechaRetoque);
+
+        const eventoRetoque = {
+          summary: `Retoque de Pestañas - ${nombre}`,
+          description: `Recordatorio de retoque de pestañas para ${nombre}. Teléfono: ${telefono}`,
+          start: {
+            dateTime: fechaRetoque.toISOString(),
+            timeZone: 'America/Lima',
+          },
+          end: {
+            dateTime: new Date(fechaRetoque.getTime() + 30 * 60000).toISOString(),
+            timeZone: 'America/Lima',
+          },
+          reminders: {
+            useDefault: false,
+            overrides: [
+              { method: 'email', minutes: 3 * 24 * 60 }, // Recordatorio 3 días antes
+              { method: 'popup', minutes: 10 }, // Notificación emergente 10 minutos antes
+            ],
+          },
+        };
+
+        await calendar.events.insert({
+          calendarId: 'primary',
+          resource: eventoRetoque,
+        });
+        console.log('Evento de retoque creado en Google Calendar');
+      }
+
+      return res.status(201).json({
+        mensaje: 'Cita registrada correctamente y evento(s) añadido(s) a Google Calendar',
+        cita: citaGuardada,
+      });
+    } catch (calendarError) {
+      console.error('Error al crear los eventos en Google Calendar:', calendarError.message);
+      return res.status(500).json({ error: 'Error al crear los eventos en Google Calendar' });
     }
 
-    res.status(201).json({
-      mensaje: 'Cita registrada correctamente y evento(s) añadido(s) a Google Calendar',
-      cita: citaGuardada,
-    });
   } catch (err) {
     console.error('Error al guardar la cita:', err.message);
-    res.status(500).json({ error: 'Error al registrar la cita' });
+    return res.status(500).json({ error: 'Error al registrar la cita' });
   }
 });
 
