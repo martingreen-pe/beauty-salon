@@ -46,3 +46,9 @@ app.get('/*', (req, res) => {
 // Puerto del servidor
 const PORT = process.env.PORT || 5000;  // Render proporcionará el puerto
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
+
+app.use(express.static(path.join(__dirname, 'build'), {
+  setHeaders: (res, path) => {
+    console.log('Serving static file:', path);
+  }
+}));
