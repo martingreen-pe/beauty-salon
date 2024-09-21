@@ -3,6 +3,9 @@ const router = express.Router();
 const Cliente = require('../models/Cliente');
 const { getGoogleCalendar } = require('./calendarAuth');
 
+// Obtener la zona horaria desde la variable de entorno o establecer un valor predeterminado
+const timeZone = process.env.TIMEZONE || 'America/Lima';
+
 // Ruta para registrar una nueva cita
 router.post('/crear', async (req, res) => {
   const { nombre, fechaCita, horaCita, telefono, servicios, retoque } = req.body;
@@ -20,7 +23,7 @@ router.post('/crear', async (req, res) => {
       fechaCita: fechaHoraCita,
       telefono,
       servicios,
-      retoque
+      retoque,
     });
     const citaGuardada = await nuevaCita.save();
 
@@ -32,12 +35,12 @@ router.post('/crear', async (req, res) => {
       summary: `Cita en el salón de belleza con ${nombre}`,
       description: `Cita programada con ${nombre}, Teléfono: ${telefono}, Servicios: ${servicios}`,
       start: {
-        dateTime: fechaHoraCita.toISOString(), // Fecha y hora combinadas
-        timeZone: 'America/Lima',
+        dateTime: fechaHoraCita.toISOString(),
+        timeZone: timeZone, // Usa la zona horaria configurada
       },
       end: {
-        dateTime: new Date(fechaHoraCita.getTime() + 30 * 60000).toISOString(), // Duración 30 minutos
-        timeZone: 'America/Lima',
+        dateTime: new Date(fechaHoraCita.getTime() + 30 * 60000).toISOString(),
+        timeZone: timeZone, // Igual que el start
       },
       reminders: {
         useDefault: false,
@@ -67,11 +70,11 @@ router.post('/crear', async (req, res) => {
           description: `Recordatorio de retoque de pestañas para ${nombre}. Teléfono: ${telefono}`,
           start: {
             dateTime: fechaRetoque.toISOString(),
-            timeZone: 'America/Lima',
+            timeZone: timeZone,
           },
           end: {
             dateTime: new Date(fechaRetoque.getTime() + 30 * 60000).toISOString(),
-            timeZone: 'America/Lima',
+            timeZone: timeZone,
           },
           reminders: {
             useDefault: false,
@@ -104,49 +107,6 @@ router.post('/crear', async (req, res) => {
   }
 });
 
-// Rutas para obtener, eliminar y editar citas
-router.get('/citas', async (req, res) => {
-  try {
-    const citas = await Cliente.find();
-    res.status(200).json(citas);
-  } catch (err) {
-    res.status(500).json({ error: 'Error al obtener las citas' });
-  }
-});
-
-router.delete('/eliminar/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    const citaEliminada = await Cliente.findByIdAndDelete(id);
-    if (!citaEliminada) {
-      return res.status(404).json({ error: 'Cita no encontrada' });
-    }
-    res.status(200).json({ mensaje: 'Cita eliminada correctamente' });
-  } catch (err) {
-    res.status(500).json({ error: 'Error al eliminar la cita' });
-  }
-});
-
-router.put('/editar/:id', async (req, res) => {
-  const { id } = req.params;
-  const { nombre, fechaCita, horaCita, telefono, servicios } = req.body;
-
-  try {
-    const fechaHoraCita = new Date(`${fechaCita}T${horaCita}`);
-    const citaActualizada = await Cliente.findByIdAndUpdate(
-      id,
-      { nombre, fechaCita: fechaHoraCita, telefono, servicios },
-      { new: true }
-    );
-
-    if (!citaActualizada) {
-      return res.status(404).json({ error: 'Cita no encontrada' });
-    }
-
-    res.status(200).json({ mensaje: 'Cita actualizada correctamente', cita: citaActualizada });
-  } catch (err) {
-    res.status(500).json({ error: 'Error al actualizar la cita' });
-  }
-});
+// Otras rutas...
 
 module.exports = router;
