@@ -18,11 +18,13 @@ const ClienteSchema = new mongoose.Schema({
     required: true
   },
   retoque: {
-    type: Date,  // Asegúrate de que este campo no sea requerido si no siempre lo necesitas
+    type: Date,
     required: function() {
-      return this.servicios === 'pestañas: extensiones';  // Solo es requerido para 'pestañas: extensiones'
+      return this.servicios === 'pestañas: extensiones';  // Solo requerido para 'pestañas: extensiones'
     }
   }
 });
+
+// Validaciones adicionales pueden ser agregadas si es necesario
 
 module.exports = mongoose.model('Cliente', ClienteSchema);

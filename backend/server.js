@@ -10,7 +10,6 @@ app.use(express.json());
 // Habilitar CORS
 const allowedOrigins = [
   'http://localhost:3000', 
-  'http://192.168.0.104:3000',  // IP local para acceso desde dispositivos móviles
   'https://beauty-salon-77.onrender.com'  // El frontend en producción
 ];
 

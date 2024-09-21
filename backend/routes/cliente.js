@@ -6,6 +6,17 @@ const { getGoogleCalendar } = require('./calendarAuth');
 // Obtener la zona horaria desde la variable de entorno o establecer un valor predeterminado
 const timeZone = process.env.TIMEZONE || 'America/Lima';
 
+// Ruta para obtener todas las citas
+router.get('/citas', async (req, res) => {
+  try {
+    const citas = await Cliente.find();  // Obtener todas las citas de la base de datos
+    res.status(200).json(citas);  // Enviar el array de citas como respuesta
+  } catch (error) {
+    console.error('Error al obtener las citas:', error);
+    res.status(500).json({ error: 'Error al obtener las citas' });
+  }
+});
+
 // Ruta para registrar una nueva cita
 router.post('/crear', async (req, res) => {
   const { nombre, fechaCita, horaCita, telefono, servicios, retoque } = req.body;
@@ -106,7 +117,5 @@ router.post('/crear', async (req, res) => {
     return res.status(500).json({ error: 'Error al registrar la cita' });
   }
 });
-
-// Otras rutas...
 
 module.exports = router;

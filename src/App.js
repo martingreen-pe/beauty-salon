@@ -16,7 +16,9 @@ function App() {
   const [mostrarBuscador, setMostrarBuscador] = useState(false); // Controlar la visibilidad
 
   // Usa la variable de entorno para seleccionar la URL del backend
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/clientes';
+   const API_URL = process.env.REACT_APP_API_URL || 'https://beauty-salon-77.onrender.com/api/clientes';
+  // const API_URL = '/api/clientes';
+
 
   const obtenerCitas = useCallback(async () => {
     try {
