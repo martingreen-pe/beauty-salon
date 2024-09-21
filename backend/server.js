@@ -31,14 +31,14 @@ mongoose.connect('mongodb+srv://martinenriquepe:bwbEoDbX7KW5WzW5@beauty-salon.ms
   .then(() => console.log('Conectado a MongoDB'))
   .catch((err) => console.log(err));
 
-// Rutas de API
+// Rutas de API deben ir primero, antes de las rutas de frontend
 app.use('/api/clientes', require('./routes/cliente'));
 
 // **Servir archivos estáticos del frontend desde la raíz del proyecto**
 app.use(express.static(path.join(__dirname, '../build')));
 
 // **Cualquier ruta no manejada por las APIs la redirigimos al frontend (index.html)**
-app.get('/*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
 
