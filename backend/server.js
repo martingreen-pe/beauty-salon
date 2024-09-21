@@ -14,7 +14,6 @@ const allowedOrigins = [
   'https://beauty-salon-77.onrender.com'  // El frontend en producción
 ];
 
-// Configuración CORS
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
@@ -35,7 +34,7 @@ mongoose.connect('mongodb+srv://martinenriquepe:bwbEoDbX7KW5WzW5@beauty-salon.ms
 // Rutas de API
 app.use('/api/clientes', require('./routes/cliente'));
 
-// **Servir archivos estáticos del frontend**
+// **Servir archivos estáticos del frontend desde la raíz del proyecto**
 app.use(express.static(path.join(__dirname, '../build')));
 
 // **Cualquier ruta no manejada por las APIs la redirigimos al frontend (index.html)**
@@ -44,11 +43,5 @@ app.get('/*', (req, res) => {
 });
 
 // Puerto del servidor
-const PORT = process.env.PORT || 5000;  // Render proporcionará el puerto
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
-
-app.use(express.static(path.join(__dirname, 'build'), {
-  setHeaders: (res, path) => {
-    console.log('Serving static file:', path);
-  }
-}));
