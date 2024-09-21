@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import FormularioCliente from './components/FormularioCliente';
 import ListaCitas from './components/ListaCitas';
 import Paginacion from './components/Paginacion';
@@ -15,18 +15,22 @@ function App() {
   const [citasPorPagina] = useState(5);
   const [mostrarBuscador, setMostrarBuscador] = useState(false); // Controlar la visibilidad
 
-  const obtenerCitas = async () => {
+  // Usa la variable de entorno para seleccionar la URL del backend
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/clientes';
+
+  
+  const obtenerCitas = useCallback(async () => {
     try {
-      const response = await axios.get('https://beauty-salon-77.onrender.com/api/clientes/citas');
+      const response = await axios.get(`${API_URL}/citas`);
       setCitas(response.data);
     } catch (error) {
       console.error('Error al obtener las citas:', error);
     }
-  };
-
+  }, [API_URL]);  // Añadir API_URL aquí como dependencia
+  
   useEffect(() => {
     obtenerCitas();
-  }, []);
+  }, [obtenerCitas]);
 
   const agregarCita = (nuevaCita) => {
     setCitas((prevCitas) => [...prevCitas, nuevaCita]);

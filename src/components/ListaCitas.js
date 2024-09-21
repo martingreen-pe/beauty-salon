@@ -25,23 +25,16 @@ function ListaCitas({ citas, eliminarCita, editarCita }) {
           {citas.map((cita) => (
             <li key={cita._id} className="lista-citas-item">
               <div className="cita-info">
-                <span className="cita-nombre">{cita.nombre}</span> -{' '}
-                {new Date(cita.fechaCita).toLocaleDateString()} -{' '}
+                <span className="cita-nombre">{cita.nombre}</span>
+                <div className="cita-fecha-hora">
+                  {new Date(cita.fechaCita).toLocaleDateString()} - {new Date(cita.fechaCita).toLocaleTimeString()}
+                </div>
                 <span className="cita-telefono">Teléfono: {cita.telefono}</span>
+                <div className="cita-servicio">Servicio: {cita.servicios}</div>
               </div>
               <div className="cita-acciones">
-                <button
-                  onClick={() => editarCita(cita)}
-                  className="cita-btn editar-btn"
-                >
-                  Editar
-                </button>
-                <button
-                  onClick={() => handleEliminar(cita._id)}
-                  className="cita-btn eliminar-btn"
-                >
-                  Eliminar
-                </button>
+                <button onClick={() => editarCita(cita)} className="cita-btn editar-btn">Editar</button>
+                <button onClick={() => handleEliminar(cita._id)} className="cita-btn eliminar-btn">Eliminar</button>
               </div>
             </li>
           ))}
