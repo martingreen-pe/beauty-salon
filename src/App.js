@@ -18,16 +18,20 @@ function App() {
   // Usa la variable de entorno para seleccionar la URL del backend
   const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/clientes';
 
-  
   const obtenerCitas = useCallback(async () => {
     try {
       const response = await axios.get(`${API_URL}/citas`);
-      setCitas(response.data);
+      if (Array.isArray(response.data)) {  // Asegurarse de que el backend devuelve un array
+        setCitas(response.data);
+      } else {
+        console.error('La respuesta no es un arreglo:', response.data);
+        setCitas([]);
+      }
     } catch (error) {
       console.error('Error al obtener las citas:', error);
     }
-  }, [API_URL]);  // Añadir API_URL aquí como dependencia
-  
+  }, [API_URL]);
+
   useEffect(() => {
     obtenerCitas();
   }, [obtenerCitas]);
@@ -46,7 +50,8 @@ function App() {
     );
   };
 
-  const citasFiltradas = citas.filter((cita) => {
+  // Si `citas` no es un arreglo, el filtro no se ejecutará
+  const citasFiltradas = Array.isArray(citas) ? citas.filter((cita) => {
     const citaFecha = new Date(cita.fechaCita);
     const inicio = fechaInicio ? new Date(fechaInicio) : null;
     const fin = fechaFin ? new Date(fechaFin) : null;
@@ -56,7 +61,7 @@ function App() {
       (!inicio || citaFecha >= inicio) &&
       (!fin || citaFecha <= fin)
     );
-  });
+  }) : [];
 
   const indexUltimaCita = paginaActual * citasPorPagina;
   const indexPrimeraCita = indexUltimaCita - citasPorPagina;
