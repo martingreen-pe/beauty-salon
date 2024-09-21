@@ -35,11 +35,11 @@ mongoose.connect('mongodb+srv://martinenriquepe:bwbEoDbX7KW5WzW5@beauty-salon.ms
 app.use('/api/clientes', require('./routes/cliente'));
 
 // **Servir archivos estáticos del frontend desde la raíz del proyecto**
-app.use(express.static(path.join(__dirname, './build')));
+app.use(express.static(path.join(__dirname, '../build')));
 
 // **Cualquier ruta no manejada por las APIs la redirigimos al frontend (index.html)**
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, './build', 'index.html'));
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
 
 // Puerto del servidor
